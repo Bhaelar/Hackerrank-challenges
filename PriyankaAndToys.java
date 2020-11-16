@@ -1,4 +1,3 @@
-
 package priyankaandtoys;
 
 import java.io.*;
@@ -21,21 +20,28 @@ public class PriyankaAndToys {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        int[] a = {12, 15, 7, 8, 19, 24};
-        System.out.println(toys(a));
+        int[] a = {4,2,3,5,1};
+        int k = 1;
+        System.out.println(largestPermutation(k, a));
     }
-    
-    static int toys(int[] w) {
-        int result = 1;
-        
-        Arrays.sort(w);
-        int min = w[0];
-        for(int i = 0 ; i < w.length ; i++) {
-            if(w[i] > min + 4) {
-                min = w[i];
-                result++;
-            }
+
+    static int[] largestPermutation(int k, int[] arr) {
+        for (int i = 0; i < k; i++) {
+            int[] result = arr;
+            Arrays.sort(result);
+            int min = result[i];
+            int max = result[arr.length - i - 1];
+            int temp = IntStream.range(0, arr.length)
+                    .filter(j -> min == arr[j])
+                    .findFirst() // first occurrence 
+                    .orElse(-1);
+            int temp1 = IntStream.range(0, arr.length)
+                    .filter(j -> max == arr[j])
+                    .findFirst() // first occurrence 
+                    .orElse(-1);
+            arr[temp] = max;
+            arr[temp1] = min;
         }
-        return result;
+        return arr;
     }
 }
